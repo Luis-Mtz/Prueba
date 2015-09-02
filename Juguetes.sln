@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Juguetes", "Juguetes\", "{E5500FEC-F8AD-4539-915D-FD3C2FC106FB}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{341637D3-05BA-4AB0-836E-5F24537E3932}|BusJuguete.dll;{5349E9F3-F30A-4C30-B268-4061D75EC49A}|DataJuguete.dll;{0C818704-276C-495F-9066-F2D3C6666AF4}|EntityJuguete.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/Juguetes"
+		Debug.AspNetCompiler.PhysicalPath = "Juguetes\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Juguetes\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Juguetes"
+		Release.AspNetCompiler.PhysicalPath = "Juguetes\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Juguetes\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "11970"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.UI", "1.UI", "{DF320638-A10B-4EE4-852E-697D51088E14}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Business", "2.Business", "{B2AD7FD9-149B-46C6-84FE-39DEB2456160}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Data", "3.Data", "{71997247-5264-436B-9B22-6571E31E6A11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusJuguete", "BusJuguete\BusJuguete.csproj", "{341637D3-05BA-4AB0-836E-5F24537E3932}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityJuguete", "EntityJuguete\EntityJuguete.csproj", "{0C818704-276C-495F-9066-F2D3C6666AF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataJuguete", "DataJuguete\DataJuguete.csproj", "{5349E9F3-F30A-4C30-B268-4061D75EC49A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E5500FEC-F8AD-4539-915D-FD3C2FC106FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5500FEC-F8AD-4539-915D-FD3C2FC106FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5500FEC-F8AD-4539-915D-FD3C2FC106FB}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5500FEC-F8AD-4539-915D-FD3C2FC106FB}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{341637D3-05BA-4AB0-836E-5F24537E3932}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{341637D3-05BA-4AB0-836E-5F24537E3932}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{341637D3-05BA-4AB0-836E-5F24537E3932}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{341637D3-05BA-4AB0-836E-5F24537E3932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C818704-276C-495F-9066-F2D3C6666AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C818704-276C-495F-9066-F2D3C6666AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C818704-276C-495F-9066-F2D3C6666AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C818704-276C-495F-9066-F2D3C6666AF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5349E9F3-F30A-4C30-B268-4061D75EC49A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5349E9F3-F30A-4C30-B268-4061D75EC49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5349E9F3-F30A-4C30-B268-4061D75EC49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5349E9F3-F30A-4C30-B268-4061D75EC49A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E5500FEC-F8AD-4539-915D-FD3C2FC106FB} = {DF320638-A10B-4EE4-852E-697D51088E14}
+		{341637D3-05BA-4AB0-836E-5F24537E3932} = {B2AD7FD9-149B-46C6-84FE-39DEB2456160}
+		{0C818704-276C-495F-9066-F2D3C6666AF4} = {B2AD7FD9-149B-46C6-84FE-39DEB2456160}
+		{5349E9F3-F30A-4C30-B268-4061D75EC49A} = {71997247-5264-436B-9B22-6571E31E6A11}
+	EndGlobalSection
+EndGlobal
