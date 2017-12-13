@@ -18,6 +18,10 @@ namespace JuguetiMax.Juguetes.Business.Entity
         public double Precio { get; set; }
         public bool Estatus  { get; set; }
         public string Foto { get; set; }
+
+        public string MarcaNombre { get; set; }
+        public string ModeloNombre { get; set; }
+        public string FechaJSon { get; set; }
         public double Costo { get; set; }
 
         private EntMarca marca;

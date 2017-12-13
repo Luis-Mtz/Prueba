@@ -1,14 +1,15 @@
-﻿using System;
+﻿using JuguetiMax.Juguetes.Business;
+using JuguetiMax.Juguetes.Business.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using JuguetiMax.Juguetes.Business;
-using JuguetiMax.Juguetes.Business.Entity;
 
-public partial class Ventas : System.Web.UI.Page
-{ protected void Page_Load(object sender, EventArgs e)
+public partial class Panelajax : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
@@ -19,7 +20,6 @@ public partial class Ventas : System.Web.UI.Page
 
 
     }
-   
     private void MostrarMensaje(string mensaje)
     {
 
@@ -82,15 +82,6 @@ public partial class Ventas : System.Web.UI.Page
                 if (existencia <= 5)
                 {
                     lblExistencia.ForeColor = System.Drawing.Color.Red;
-
-                    if (existencia==0)
-                    {
-                        LinkButton lnkEditar = (LinkButton)GvJuguetes.Rows[contador].FindControl("lnkEditar");
-                        lnkEditar.ForeColor = System.Drawing.Color.Gray;
-                        lnkEditar.Text = "Agotado";
-                        lnkEditar.Enabled = false;
-
-                    }
 
                 }
             }
@@ -264,9 +255,8 @@ public partial class Ventas : System.Web.UI.Page
         Response.Redirect("EdicionUrl.aspx?ID=" + id);
 
     }
-    protected void btnPdf_Click(object sender, ImageClickEventArgs e)
+    protected void TimerUno_Tick(object sender, EventArgs e)
     {
-        Response.Redirect("");
-
+        lbltimer.Text = DateTime.Now.ToString("HH:mm:ss");
     }
 }

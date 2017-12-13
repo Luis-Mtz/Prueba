@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Juguetes", "Juguetes\", "{E5500FEC-F8AD-4539-915D-FD3C2FC106FB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
@@ -20,6 +22,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Juguetes", "Juguetes\", "{E
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "11970"
+		SlnRelativePath = "Juguetes\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
 EndProject
@@ -34,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityJuguete", "EntityJuguete\EntityJuguete.csproj", "{0C818704-276C-495F-9066-F2D3C6666AF4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataJuguete", "DataJuguete\DataJuguete.csproj", "{5349E9F3-F30A-4C30-B268-4061D75EC49A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusUtility", "BusUtility\BusUtility.csproj", "{62C4E798-4036-4E30-B4B4-526B2596AB75}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +62,10 @@ Global
 		{5349E9F3-F30A-4C30-B268-4061D75EC49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5349E9F3-F30A-4C30-B268-4061D75EC49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5349E9F3-F30A-4C30-B268-4061D75EC49A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62C4E798-4036-4E30-B4B4-526B2596AB75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62C4E798-4036-4E30-B4B4-526B2596AB75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62C4E798-4036-4E30-B4B4-526B2596AB75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62C4E798-4036-4E30-B4B4-526B2596AB75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,6 +74,7 @@ Global
 		{E5500FEC-F8AD-4539-915D-FD3C2FC106FB} = {DF320638-A10B-4EE4-852E-697D51088E14}
 		{341637D3-05BA-4AB0-836E-5F24537E3932} = {B2AD7FD9-149B-46C6-84FE-39DEB2456160}
 		{0C818704-276C-495F-9066-F2D3C6666AF4} = {B2AD7FD9-149B-46C6-84FE-39DEB2456160}
+		{62C4E798-4036-4E30-B4B4-526B2596AB75} = {B2AD7FD9-149B-46C6-84FE-39DEB2456160}
 		{5349E9F3-F30A-4C30-B268-4061D75EC49A} = {71997247-5264-436B-9B22-6571E31E6A11}
 	EndGlobalSection
 EndGlobal

@@ -13,12 +13,14 @@ public partial class EdicionUrl : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         int Id = Convert.ToInt32(Request.QueryString["ID"]);
+
         if (!IsPostBack)
         {
             LlenarDdlMarca();
             LlenarddlCategoria();
 
             EntJuguete ent = new BusJuguete().Obtener(Id);
+            Session["ENTIDAD"] = ent;
             ddlMarca.SelectedValue = ent.Marca_Id.ToString();
 
             LlenarDdlModelo(ent.Marca_Id);
@@ -35,8 +37,6 @@ public partial class EdicionUrl : System.Web.UI.Page
             chkEstatus.Checked = ent.Estatus;
 
         }
-          
-
     }
 
     private void LlenarddlCategoria()
@@ -73,7 +73,8 @@ public partial class EdicionUrl : System.Web.UI.Page
     protected void btnActualizar_Click(object sender, EventArgs e)
     {
         EntJuguete ent = new EntJuguete();
-
+        EntJuguete entVieja = new EntJuguete();
+        entVieja = Session["ENTIDAD"] as EntJuguete;
         ent.Nombre = txtNombre.Text;
         ent.Existencia = Convert.ToInt32(txtExistencia.Text);
         ent.Fecha = Convert.ToDateTime(txtFecha.Text);
@@ -84,10 +85,22 @@ public partial class EdicionUrl : System.Web.UI.Page
         ent.Categoria_Id = Convert.ToInt32(ddlCategoria.SelectedValue);
         ent.Id = Convert.ToInt32(Request.QueryString["ID"]);
 
-        ent.Foto = "Img/" + fuFoto.FileName;
-        bool guardado = GuardarFoto(fuFoto);
-        imgFoto.ImageUrl = "Img/" + fuFoto.FileName;
+        
+        //imgFoto.ImageUrl = "Img/" + fuFoto.FileName;
 
+        if (fuFoto.HasFile)
+        {
+            ent.Foto = "Img/" + fuFoto.FileName;
+            bool guardado = GuardarFoto(fuFoto);
+
+        }
+
+        else
+        {
+
+            //imgFoto.ImageUrl = ent.Foto;
+            ent.Foto = entVieja.Foto; 
+        }
         ent.Estatus = chkEstatus.Checked;
 
         try
@@ -95,14 +108,18 @@ public partial class EdicionUrl : System.Web.UI.Page
 
             BusJuguete obj = new BusJuguete();
             obj.Actuaizar(ent);
+            Response.Redirect("Default.aspx");
 
-            Response.Redirect("EdicionUrl.aspx?ID=" + ent.Id);
+            //Response.Redirect("EdicionUrl.aspx?ID=" + ent.Id);
         }
         catch (Exception ex)
         {
 
             Title = ex.Message;
-        }      
+        }
+
+
+       
         
 
     }
@@ -150,4 +167,7 @@ public partial class EdicionUrl : System.Web.UI.Page
         int idMarca = Convert.ToInt32(ddlMarca.SelectedItem.Value);
         LlenarDdlModelo(idMarca);
     }
+
+
+
 }

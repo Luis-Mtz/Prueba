@@ -1,17 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Panelajax.aspx.cs" Inherits="Panelajax" %>
 
-<!DOCTYPE hrml>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>Juguetes </title>
-      <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-   
+
     <!-- Bootstrap -->
 
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,11 +21,21 @@
     <![endif]-->
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div style="width: 898px">
+    <form id="form2" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+            <ContentTemplate>
+                <asp:Timer ID="TimerUno" runat="server" OnTick="TimerUno_Tick" Interval="1000"></asp:Timer>
+                <asp:Label ID="lbltimer" runat="server" Text=""></asp:Label>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+
+        <asp:UpdatePanel ID="upGv" runat="server" UpdateMode="Conditional">
+            <ContentTemplate>
+            <div style="width: 898px">
         <asp:GridView ID="GvJuguetes" Style="text-align: center; margin-top: 0px;" runat="server"
             AutoGenerateColumns="False" CellPadding="3" GridLines="Vertical" ShowFooter="True"
-            DataKeyNames="Id,Marca_Id,Modelo_Id,Categoria_Id" BackColor="White" BorderColor="#999999"
+            DataKeyNames="Id,Marca_Id,Modelo_Id,Categoria_Id,Existencia" BackColor="White" BorderColor="#999999"
             BorderStyle="None" BorderWidth="1px" OnRowCancelingEdit="GvJuguetes_RowCancelingEdit"
             OnRowEditing="GvJuguetes_RowEditing" 
             OnRowUpdating="GvJuguetes_RowUpdating" OnRowDeleting="GvJuguetes_RowDeleting">
@@ -35,20 +45,20 @@
                     <EditItemTemplate>
                         <asp:Label ID="lblIdEIT" runat="server" Text='<%# Bind("Id") %>'></asp:Label>
                     </EditItemTemplate>
-                    <FooterTemplate>
-                    </FooterTemplate>
+                   
                     <ItemTemplate>
-                        <asp:Label ID="Label1" runat="server" Text='<%# Bind("Id") %>'></asp:Label>
+                        <asp:Label ID="lblIdIT" runat="server" Text='<%# Bind("Id") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
+                        <asp:Label ID="lblIdFT" runat="server" Text='<%# Bind("Id") %>'></asp:Label>
                     </FooterTemplate>
+
+                   
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="NOMBRE">
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtNombreEIT" runat="server" Text='<%# Bind("Nombre") %>'></asp:TextBox>
+                        <asp:Label ID="txtNombreEIT" runat="server" Text='<%# Bind("Nombre") %>'></asp:Label>
 
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator80" ControlToValidate="txtNombreEIT"
-                            ForeColor="Red" Text="***" ValidationGroup="cambio"  runat="server" ErrorMessage="Nombre Oblogatorio"></asp:RequiredFieldValidator>
 
                     </EditItemTemplate>
                     <FooterTemplate>
@@ -62,12 +72,7 @@
                     <ItemTemplate>
                         <asp:Label ID="Label2" runat="server" Text='<%# Bind("Nombre") %>'></asp:Label>
                     </ItemTemplate>
-                    <FooterTemplate>
-                        <asp:TextBox ID="txtNombreFT" runat="server"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="txtNombreFT"
-                            ForeColor="Red" Text="***" ValidationGroup="alta"  runat="server" ErrorMessage="Nombre Oblogatorio"></asp:RequiredFieldValidator>
-                            
-                    </FooterTemplate>
+                   
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="EXISTENCIA">
                     <EditItemTemplate>
@@ -80,7 +85,7 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="cambio"></asp:RegularE
 
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="Label3" runat="server" Text='<%# Bind("Existencia") %>'></asp:Label>
+                        <asp:Label ID="lblExistenciaIT" runat="server" Text='<%# Bind("Existencia") %>'></asp:Label>
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:TextBox ID="txtExistenciaFT" runat="server"></asp:TextBox>
@@ -94,12 +99,7 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="alta"></asp:RegularExp
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="MARCA">
                     <EditItemTemplate>
-                        <asp:DropDownList ID="ddlMarcaEIT" runat="server" AutoPostBack="True" AppendDataBoundItems="true"
-                            OnSelectedIndexChanged="ddlMarcaEIT_SelectedIndexChanged">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator50" ControlToValidate="ddlMarcaEIT"
-                            ForeColor="Red" Text="***" ValidationGroup="cambio" runat="server" InitialValue="-1"
-                            ErrorMessage="Marca Oblogatoria"></asp:RequiredFieldValidator>
+                        <asp:Label ID="lblMarcaEIT" runat="server" Text='<%# Bind("Marca.Nombre") %>'></asp:Label>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label ID="Label4" runat="server" Text='<%# Bind("Marca.Nombre") %>'></asp:Label>
@@ -116,11 +116,8 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="alta"></asp:RegularExp
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="MODELO">
                     <EditItemTemplate>
-                        <asp:DropDownList ID="ddlModeloEIT" runat="server" AppendDataBoundItems="true">
-                        </asp:DropDownList>
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator40" ControlToValidate="ddlModeloEIT"
-                            ForeColor="Red" Text="***" ValidationGroup="alta" runat="server" InitialValue="-1"
-                            ErrorMessage="Modelo Oblogatorio"></asp:RequiredFieldValidator>
+                        <asp:Label ID="lblModeloEIT" runat="server" Text='<%# Bind("Modelo.Nombre") %>'></asp:Label>
+                         
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label ID="Label5" runat="server" Text='<%# Bind("Modelo.Nombre") %>'></asp:Label>
@@ -136,12 +133,7 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="alta"></asp:RegularExp
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="CATEGORIA">
                     <EditItemTemplate>
-                        <asp:DropDownList ID="ddlCategoriaEIT" runat="server" AppendDataBoundItems="true">
-                            <asp:ListItem Text="[Selecciona Categoria]" Value="-1" />
-                        </asp:DropDownList>
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator10000000009" ControlToValidate="ddlCategoriaEIT"
-                            ForeColor="Red" Text="***" ValidationGroup="cambio" runat="server" InitialValue="-1"
-                            ErrorMessage="Categoria Oblogatoria"></asp:RequiredFieldValidator>
+                        <asp:Label ID="lblCategoriaEIT" runat="server" Text='<%# Bind("Categoria.Nombre") %>'></asp:Label>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label ID="Label6" runat="server" Text='<%# Bind("Categoria.Nombre") %>'></asp:Label>
@@ -157,12 +149,8 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="alta"></asp:RegularExp
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="FECHA">
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtFechaEIT" runat="server" Text='<%# Bind("Fecha","{0:dd/MM/yyyy}") %>'></asp:TextBox>
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator170" ControlToValidate="txtFechaEIT"
-                            ForeColor="Red" Text="***" ValidationGroup="alta" runat="server" ErrorMessage="Fecha Oblogatoria"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator200" runat="server" ForeColor="Red" ErrorMessage="Error fecha- Ejempo -Mes/Dia/Año"
-                   ControlToValidate="txtFechaEIT"  Text="***" Type="Date" ValidationGroup="alta" Display="Dynamic"
-                   ValidationExpression="^(((0?[1-9]|[12]\d|3[01])[\.\-\/](0?[13578]|1[02])[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}|\d))|((0?[1-9]|[12]\d|30)[\.\-\/](0?[13456789]|1[012])[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}|\d))|((0?[1-9]|1\d|2[0-8])[\.\-\/]0?2[\.\-\/]((1[6-9]|[2-9]\d)?\d{2}|\d))|(29[\.\-\/]0?2[\.\-\/]((1[6-9]|[2-9]\d)?(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)|00|[048])))$"></asp:RegularExpressionValidator>
+                        <asp:Label ID="txtFechaEIT" runat="server" Text='<%# Bind("Fecha","{0:dd/MM/yyyy}") %>'></asp:Label>
+                         
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label ID="Label7" runat="server" Text='<%# Bind("Fecha","{0:dd/MM/yyyy}") %>'></asp:Label>
@@ -178,9 +166,8 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="alta"></asp:RegularExp
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="PRECIO">
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtPrecioEIT" runat="server" Text='<%# Bind("Precio") %>'></asp:TextBox>
-                         <asp:RequiredFieldValidator ID="RequiredFieldValidator290" ControlToValidate="txtPrecioEIT"
-                            ForeColor="Red" Text="***" ValidationGroup="cambio" runat="server" ErrorMessage="Precio Oblogatorio"></asp:RequiredFieldValidator>
+                        <asp:Label ID="lblPrecioEIT" runat="server" Text='<%# Bind("Precio") %>'></asp:Label>
+                        
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label ID="Label9" runat="server" Text='<%# Bind("Precio", "{0:C}") %>'></asp:Label>
@@ -193,9 +180,8 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="alta"></asp:RegularExp
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="FOTO">
                     <EditItemTemplate>
-                        <asp:FileUpload ID="fuFotoEIT" runat="server" Width="100px"></asp:FileUpload>
-                         <asp:RequiredFieldValidator ID="rfv56" ControlToValidate="fuFotoEIT"
-                            ForeColor="Red" Text="***" ValidationGroup="cambio" runat="server" ErrorMessage="Foto Oblogatoria"></asp:RequiredFieldValidator>
+                        <asp:Image ID="imgFotoEIT" Width="100px" ImageUrl='<%# Bind("Foto") %>'  runat="server" />
+                                               
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Image ID="imgFotoIT" Width="100px" ImageUrl='<%# Bind("Foto") %>' runat="server" />
@@ -234,16 +220,18 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="alta"></asp:RegularExp
                         <asp:CheckBox ID="chkEstatusFT" runat="server" />
                     </FooterTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Editar" ShowHeader="False">
+
+
+                <asp:TemplateField HeaderText="Ventas" ShowHeader="False">
                     <EditItemTemplate>
-                        <asp:LinkButton  ID="LnkUpdate" target="_blank" runat="server" CausesValidation="True"  ValidationGroup="cambio" CommandName="Update"
-                            Text="Actualizar"></asp:LinkButton>
+                        <asp:LinkButton  ID="LnkUpdate" runat="server" CausesValidation="True"  ValidationGroup="cambio" CommandName="Update"
+                            Text="Realizar-Venta"></asp:LinkButton>
                         &nbsp;<asp:LinkButton ID="lnkCancelar" runat="server" CausesValidation="False" CommandName="Cancel"
                             Text="Cancelar"></asp:LinkButton>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:LinkButton ID="lnkEditar" runat="server" ValidationGroup="cambio" CausesValidation="False" CommandName="Edit"
-                            Text="Editar"></asp:LinkButton>
+                            Text="Ventas"></asp:LinkButton>
                     </ItemTemplate>
                     <FooterTemplate>
                         <asp:LinkButton Text="Agregar" ID="lnkAgregarFT" ValidationGroup="alta" runat="server"
@@ -280,8 +268,13 @@ ErrorMessage="Please Enter Only Numbers" ValidationGroup="alta"></asp:RegularExp
      <asp:ValidationSummary ID="vsCambio" ValidationGroup="cambio" runat="server" />
 
     <asp:HiddenField ID="hidf" runat="server" />
+            
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </form>
-    <h1>Hello, world!</h1>
+
+
+    <h1>Hello, Sr.Luis!</h1>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

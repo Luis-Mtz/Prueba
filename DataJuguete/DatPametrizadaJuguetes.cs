@@ -13,15 +13,17 @@ namespace JuguetiMax.Juguetes.Data
         public DatPametrizadaJuguetes()
    
         {
-            con.ConnectionString = ("Data Source=SYSTEMP3\\MSSQLSERVER2012 ; Initial Catalog=Juguetes; User id=sa; Password=12345;");
+            con.ConnectionString = ("Data Source=DESKTOP-GJAEV7B ; Initial Catalog=Juguetes; User id=sa; Password=12345;");
 
         }
 
 
         public DataTable Obtener()
         {
-
-            SqlDataAdapter da = new SqlDataAdapter("SELECT  [Jugue_Id],[Jugue_Nombre],[Jugue_Existencia],[Jugue_Marca_Id],Jugue_Modelo_Id,[Jugue_Categoria_Id],[Jugue_Fecha_Alta],[Jugue_Precio],[Jugue_Estatus],[Jugue_Foto],[Jugue_Costo],Cata_Id, Cata_Nombre,Cata_Modelo_Id, Cata_Modelo_Nombre, Cata_Modelo_Marca_Id, Cate_Id, Cate_Nombre  FROM Juguetes.[dbo].[Juguete]  inner join [dbo].[Cata_Marca] on  [Cata_Id]= [Jugue_Marca_Id]  inner join [dbo].[Cata_Modelo] on  [Cata_Modelo_Id] = [Jugue_Modelo_Id] inner join [dbo].[Cata_Categoria] on [Cate_Id] = [Jugue_Categoria_Id]", con);
+            SqlCommand com = new SqlCommand ("spSelectJuguetes", con);
+            com.CommandType = CommandType.StoredProcedure;
+                                                        
+            SqlDataAdapter da = new SqlDataAdapter(com);
             DataTable dt = new DataTable();
             da.Fill(dt);
             return dt;
@@ -31,7 +33,11 @@ namespace JuguetiMax.Juguetes.Data
         public DataRow Obtener(int id)
         {
 
-            SqlDataAdapter da = new SqlDataAdapter(string.Format("select * from Juguete where Jugue_Id =" + id), con);
+            SqlCommand com = new SqlCommand("spSelectJuguete", con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter(){SqlDbType = SqlDbType.Int, ParameterName="@Id", Value=id});
+
+            SqlDataAdapter da = new SqlDataAdapter(com);
             DataTable dt = new DataTable();
             da.Fill(dt);
             return dt.Rows[0];
@@ -40,18 +46,24 @@ namespace JuguetiMax.Juguetes.Data
         public int Insertar(string Nombre, int Existencia, int Marca, int Modelo, int Categoria, string Fecha, double Precio, bool Estatus, double Costo, string Foto)
         {
 
-
-            SqlCommand com = new SqlCommand(string.Format("INSERT INTO [dbo].[Juguete] ([Jugue_Id],[Jugue_Nombre],[Jugue_Existencia],[Jugue_Marca_Id],Jugue_Modelo_Id,[Jugue_Categoria_Id],[Jugue_Fecha_Alta],[Jugue_Precio],[Jugue_Estatus],[Jugue_Costo],[Jugue_Foto]) VALUES ((SELECT ISNULL(MAX(Jugue_Id)+1,1) FROM Juguete),'{0}',{1},{2},{3},{4},'{5}',{6},'{7}',{8},'{9}')", Nombre, Existencia, Marca, Modelo, Categoria, Fecha, Precio, Estatus, Costo, Foto), con);
-            DataTable dt = new DataTable();
-
+            SqlCommand com = new SqlCommand("spInsertJuguete", con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.NVarChar, ParameterName = "@Nombre", Value = Nombre });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Existencia", Value = Existencia });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Marca", Value = Marca });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Modelo", Value = Modelo });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Categoria", Value = Categoria });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.NVarChar, ParameterName = "@Fecha", Value = Fecha });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Float, ParameterName = "@Precio", Value = Precio });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Bit, ParameterName = "@Estatus", Value = Estatus });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Float, ParameterName = "@Costo", Value = Costo });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.NVarChar, ParameterName = "@Foto", Value = Foto });
             try
             {
                 con.Open();
                 int filas = com.ExecuteNonQuery();
                 con.Close();
                 return filas;
-
-
             }
             catch (Exception ex)
             {
@@ -63,7 +75,9 @@ namespace JuguetiMax.Juguetes.Data
 
         public int Borrar(int id)
         {
-            SqlCommand com = new SqlCommand(string.Format("DELETE FROM [dbo].[Juguete] WHERE Jugue_Id ='{0}' ", id), con);
+            SqlCommand com = new SqlCommand("spDeleteJuguete", con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Id", Value = id });
 
             try
             {
@@ -84,7 +98,20 @@ namespace JuguetiMax.Juguetes.Data
 
         public int Actualizar(string Nombre, int Existencia, int Marca, int Modelo, int Categoria, string Fecha, double Precio, bool Estatus, double Costo, string Foto, int id)
         {
-            SqlCommand com = new SqlCommand(string.Format("UPDATE [dbo].[Juguete]   SET [Jugue_Nombre] = '{0}',[Jugue_Existencia] = {1},Jugue_Marca_Id = {2},[Jugue_Modelo_Id] = {3},[Jugue_Categoria_Id] = {4},[Jugue_Fecha_Alta] = '{5}',[Jugue_Precio] = {6},[Jugue_Estatus] = '{7}',[Jugue_Costo]={8},[Jugue_Foto] = '{9}' WHERE [Jugue_Id] = {10}", Nombre, Existencia, Marca, Modelo, Categoria, Fecha, Precio, Estatus, Costo, Foto, id), con);
+            SqlCommand com = new SqlCommand("spActualizarJuguete", con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.NVarChar, ParameterName = "@Nombre", Value = Nombre });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Existencia", Value = Existencia });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Marca", Value = Marca });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Modelo", Value= Modelo });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Categoria", Value = Categoria });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.NVarChar, ParameterName = "@Fecha", Value = Fecha });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Float, ParameterName = "@Precio", Value = Precio });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Bit, ParameterName = "@Estatus", Value = Estatus });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Float, ParameterName = "@Costo", Value = Costo });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.NVarChar, ParameterName = "@Foto", Value = Foto });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Id", Value = id });
+
 
             try
             {
@@ -106,6 +133,88 @@ namespace JuguetiMax.Juguetes.Data
 
 
         }
+
+        public int Actualizar(int marca, int Existencia, int modelo)
+        {
+            SqlCommand com = new SqlCommand("spActualizarValidacionUno", con);
+            com.CommandType = CommandType.StoredProcedure;
+       
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Existencia", Value = Existencia });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Marca", Value = marca });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Modelo", Value = modelo });
+            
+
+            try
+            {
+                con.Open();
+                int filas = com.ExecuteNonQuery();
+                con.Close();
+                return filas;
+
+
+            }
+            catch (Exception ex)
+            {
+
+                con.Close();
+                throw new ApplicationException(ex.Message);
+            }
+        }
+
+        public bool Obtener(int idMarca, int idModelo)
+        {
+
+            SqlCommand com = new SqlCommand("spObtenerbool",con);
+            com.CommandType = CommandType.StoredProcedure;
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@idMarca", Value = idMarca });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@idModelo", Value = idModelo }); 
+            
+            try
+            {
+                con.Open();
+                bool existe = Convert.ToBoolean(com.ExecuteScalar());
+                con.Close();
+                return existe;
+
+            }
+            catch (Exception ex)
+            {
+
+                con.Close();
+                throw new ApplicationException(ex.Message);
+            }
+
+
+
+        }
+
+        public int Actualizar(int id, int Existencia)
+        {
+
+
+
+            SqlCommand com = new SqlCommand("spActualizarValidacionDos", con);
+            com.CommandType = CommandType.StoredProcedure;
+
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Existencia", Value = Existencia });
+            com.Parameters.Add(new SqlParameter() { SqlDbType = SqlDbType.Int, ParameterName = "@Id", Value = id });
+
+            try
+            {
+                con.Open();
+                int filas = com.ExecuteNonQuery();
+                con.Close();
+                return filas;
+
+            }
+            catch (Exception ex)
+            {
+
+                con.Close();
+                throw new ApplicationException(ex.Message);
+            }
+        }
+
 
 
 

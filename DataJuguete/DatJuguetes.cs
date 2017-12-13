@@ -15,7 +15,7 @@ namespace JuguetiMax.Juguetes.Data
 
         public DatJuguetes()
         {
-            con.ConnectionString = ("Data Source=SYSTEMP3\\MSSQLSERVER2012 ; Initial Catalog=Juguetes; User id=sa; Password=12345;");
+            con.ConnectionString = ("Data Source=DESKTOP-GJAEV7B ; Initial Catalog=Juguetes; User id=sa; Password=12345;");
 
         }
 
@@ -44,7 +44,7 @@ namespace JuguetiMax.Juguetes.Data
 
 
             SqlCommand com = new SqlCommand(string.Format("INSERT INTO [dbo].[Juguete] ([Jugue_Id],[Jugue_Nombre],[Jugue_Existencia],[Jugue_Marca_Id],Jugue_Modelo_Id,[Jugue_Categoria_Id],[Jugue_Fecha_Alta],[Jugue_Precio],[Jugue_Estatus],[Jugue_Costo],[Jugue_Foto]) VALUES ((SELECT ISNULL(MAX(Jugue_Id)+1,1) FROM Juguete),'{0}',{1},{2},{3},{4},'{5}',{6},'{7}',{8},'{9}')", Nombre, Existencia, Marca, Modelo, Categoria, Fecha, Precio, Estatus, Costo, Foto), con);
-            DataTable dt = new DataTable();
+            //DataTable dt = new DataTable();
 
             try
             {
@@ -170,5 +170,30 @@ namespace JuguetiMax.Juguetes.Data
                 throw new ApplicationException(ex.Message);
             }
         }
+
+        public DataRow Obtener(string email, string password)
+        {
+            SqlDataAdapter da = new SqlDataAdapter(string.Format("Select * from Usuarios where User_Email='{0}' and User_Password='{1}' ", email, password), con);
+
+            DataTable dt = new DataTable();
+
+            da.Fill(dt);
+
+            return dt.Rows[0];
+        
+        }
+
+        public DataRow ObtenerJuguete(int modelo, int marca)
+        {
+            SqlDataAdapter da = new SqlDataAdapter(string.Format("select Cate_Id, Cate_Nombre, Cata_Modelo_Id, Cata_Modelo_Nombre, Cata_Modelo_Marca_Id,Cata_Id, Cata_Nombre,Jugue_Id, Jugue_Nombre, Jugue_Existencia, Jugue_Marca_Id, Jugue_Modelo_Id, Jugue_Categoria_Id, Jugue_Fecha_Alta, Jugue_Precio, Jugue_Estatus, Jugue_Foto, Jugue_Costo from Juguete inner join Cata_Marca on Cata_Id = Jugue_Marca_Id inner join Cata_Modelo on [Cata_Modelo_Id] = Jugue_Modelo_Id INNER join [dbo].[Cata_Categoria] on [Cate_Id] = [Jugue_Categoria_Id] where Jugue_Modelo_Id ={0} and Jugue_Marca_Id = {1}", modelo, marca), con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            return dt.Rows[0];
+           
+
+           
+        }
+
     }
 }

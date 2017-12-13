@@ -61,8 +61,23 @@ namespace JuguetiMax.Juguetes.Business
 
         }
 
+        public List<EntModelo> ObtenerModelos()
+        {
+            DataTable dt = new DatCatalogo().ObtenerModelos();
+            
+            List<EntModelo> lst = new List<EntModelo>();
 
+            foreach (DataRow dr in dt.Rows)
+            {
+                EntModelo ent = new EntModelo ();
+                ent.id = Convert.ToInt32(dr["Cata_Modelo_Id"]);
+                ent.Nombre = dr["Cata_Modelo_Nombre"].ToString();
+                ent.Marca_id = Convert.ToInt32(dr["Cata_Modelo_Marca_Id"]);
+                lst.Add(ent);
+            
+            }
 
-
+            return lst;
+        }
     }
 }

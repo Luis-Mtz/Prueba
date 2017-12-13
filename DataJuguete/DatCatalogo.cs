@@ -14,8 +14,8 @@ namespace JuguetiMax.Juguetes.Data
 
         public DatCatalogo()
         {
-            con.ConnectionString = ("Data Source=SYSTEMP3\\MSSQLSERVER2012 ; Initial Catalog=Juguetes; User id=sa; Password=12345;");
-
+            con.ConnectionString = ("Data Source=DESKTOP-GJAEV7B ; Initial Catalog=Juguetes; User id=sa; Password=12345;");
+            con.Open();
         }
 
         public DataTable ObtenerMarcas()
@@ -46,9 +46,12 @@ namespace JuguetiMax.Juguetes.Data
         }
 
 
-
-
-
-
+        public DataTable ObtenerModelos()
+        {
+            SqlDataAdapter da = new SqlDataAdapter(" select * from Cata_Modelo ", con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
     }
 }
