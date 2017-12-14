@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Causales.cs" />
     <Compile Include="DatCatalogo.cs" />
     <Compile Include="DatJuguetes.cs" />
     <Compile Include="DatPametrizadaJuguetes.cs" />
