@@ -15,6 +15,7 @@ namespace JuguetiMax.Juguetes.Data
         public DatCatalogo()
         {
             con.ConnectionString = ("Data Source=DESKTOP-GJAEV7B ; Initial Catalog=Juguetes; User id=sa; Password=12345;");
+            con.ConnectionString = ("Data Source=DESKTOP-GJAEV7B ; Initial Catalog=Juguetes; User id=sa; Password=12345;");
             con.Open();
         }
 
